@@ -10,10 +10,6 @@ let cardContainer = document.querySelector('.cards');
 axios.get('https://api.github.com/users/jeffreywhitaker')
   .then( (response) => {
     console.log(response);
-    // response.data.forEach( item => {
-    //   let newEntry = cardMaker(item);
-    // cardContainer.appendChild(newEntry);
-    // });
     let newEntry = cardMaker(response.data);
     cardContainer.appendChild(newEntry);
   })
@@ -23,21 +19,30 @@ axios.get('https://api.github.com/users/jeffreywhitaker')
 
 
 
-
+// Get follower data, save to new array, then use that data in the cardMaker function
 
 axios.get('https://api.github.com/users/jeffreywhitaker/followers')
   .then( (response) => {
     console.log(response);
-    const followersArray = [response];
-    response.data.forEach( item => {
-      let newEntry = cardMaker(item);
-    cardContainer.appendChild(newEntry);
+    const followersArray = [];
+    response.data.forEach( (follower) => {
+      followersArray.push(follower.url)
     });
+    console.log(followersArray);
+    followersArray.forEach( API => {
+      axios.get(API)
+        .then ( (response) => {
+          console.log(response);
+          let newEntry = cardMaker(response.data);
+          cardContainer.appendChild(newEntry);
+    });
+  })
   })
   .catch( (err) => {
     console.log(err);
   });
 
+ 
 
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -105,19 +110,20 @@ function cardMaker(object){
   cardUserLocation.textContent = object.location;
 
   const cardUserProfileDiv = document.createElement('p');
+  cardUserProfileDiv.textContent = `Profile: `;
 
   const cardUserProfileAnchor = document.createElement('a');
   cardUserProfileAnchor.href = object.html_url;
   cardUserProfileAnchor.textContent = object.html_url;
 
   const cardUserFollowersCount = document.createElement('p');
-  cardUserFollowersCount.textContent = object.followers;
+  cardUserFollowersCount.textContent = `Followers: ${object.followers}`;
 
   const cardUserFollowingCount = document.createElement('p');
-  cardUserFollowingCount.textContent = object.following;
+  cardUserFollowingCount.textContent = `Following: ${object.following}`;
 
   const cardUserBio = document.createElement('p');
-  cardUserBio.textContent = object.bio;
+  cardUserBio.textContent = `Bio: ${object.bio}`;
 
   //append each element in correct sequence
   newCard.appendChild(cardImg);
