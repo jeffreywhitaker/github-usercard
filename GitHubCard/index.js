@@ -1,7 +1,16 @@
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
-           https://api.github.com/users/<your name>
+           https://api.github.com/users/jeffreywhitaker
 */
+// axios.get('https://api.github.com/users/jeffreywhitaker')
+//   .then( (response) => {
+//     console.log(response)
+    // response.data.followers_URL.forEach( item => {
+    //   let newFollower = cardMaker(item)
+    //   
+    // })
+  // })
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -43,8 +52,62 @@ const followersArray = [];
     <p>Bio: {users bio}</p>
   </div>
 </div>
-
 */
+
+function cardMaker(object){
+  //make each element and give them appropriate class names and text content
+  const newCard = document.createElement('div');
+  newCard.classList.add('card');
+
+  const cardImg = document.createElement('img');
+  cardImg.src = object.avatar_url;
+
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+
+  const cardName = document.createElement('h3');
+  cardName.classList.add('name');
+  cardName.textContent = object.name;
+
+  const cardUsername = document.createElement('p');
+  cardUsername.classList.add('username');
+  cardUsername.textContent = object.login;
+
+  const cardUserLocation = document.createElement('p');
+  cardUserLocation.textContent = object.location;
+
+  const cardUserProfileDiv = document.createElement('p');
+
+  const cardUserProfileAnchor = document.createElement('a');
+  cardUserProfileAnchor.href = object.html_url;
+  cardUserProfileAnchor.textContent = object.html_url;
+
+  const cardUserFollowersCount = document.createElement('p');
+  cardUserFollowersCount = object.followers;
+
+  const cardUserFollowingCount = document.createElement('p');
+  cardUserFollowingCount = object.following;
+
+  const cardUserBio = document.createElement('p');
+  cardUserBio = object.bio;
+
+  //append each element in correct sequence
+  newCard.appendChild(cardImg);
+  newCard.appendChild(cardInfo);
+  cardInfo.appendChild(cardName);
+  cardInfo.appendChild(cardUsername);
+  cardInfo.appendChild(cardUserLocation);
+  cardInfo.appendChild(cardUserProfileDiv);
+  cardUserProfileDiv.appendChild(cardUserProfileAnchor);
+  cardInfo.appendChild(cardUserFollowersCount);
+  cardInfo.appendChild(cardUserFollowingCount);
+  cardInfo.appendChild(cardUserBio);
+
+  //return the card
+  return newCard;
+
+}
+
 
 /* List of LS Instructors Github username's: 
   tetondan
