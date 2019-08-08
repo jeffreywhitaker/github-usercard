@@ -1,9 +1,8 @@
 // Set card container
-
 let cardContainer = document.querySelector('.cards');
 
-// Get my own data, input it into the cardMaker
 
+// Get my own data, input it into the cardMaker
 axios.get('https://api.github.com/users/jeffreywhitaker')
   .then( (response) => {
     console.log(response);
@@ -13,11 +12,10 @@ axios.get('https://api.github.com/users/jeffreywhitaker')
   .catch( (err) => {
     console.log(err);
   });
-
+//end
 
 
 // Get follower data, save to new array, then use that data in the cardMaker function
-
 axios.get('https://api.github.com/users/jeffreywhitaker/followers')
   .then( (response) => {
     console.log(response);
@@ -38,9 +36,10 @@ axios.get('https://api.github.com/users/jeffreywhitaker/followers')
   .catch( (err) => {
     console.log(err);
   });
+//end 
+
 
 // Card Making super function
-
 function cardMaker(object){
   //make each element and give them appropriate class names and text content
   const newCard = document.createElement('div');
@@ -93,7 +92,7 @@ function cardMaker(object){
 
   //return the card
   return newCard;
-}
+};
 
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
