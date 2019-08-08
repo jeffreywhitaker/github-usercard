@@ -2,15 +2,26 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/jeffreywhitaker
 */
-// axios.get('https://api.github.com/users/jeffreywhitaker')
-//   .then( (response) => {
-//     console.log(response)
-    // response.data.followers_URL.forEach( item => {
-    //   let newFollower = cardMaker(item)
-    //   
-    // })
-  // })
 
+let cardContainer = document.querySelector('.cards');
+
+/*
+
+axios.get('https://api.github.com/users/jeffreywhitaker')
+  .then( (response) => {
+    console.log(response);
+    // response.data.forEach( item => {
+    //   let newEntry = cardMaker(item);
+    // cardContainer.appendChild(newEntry);
+    // });
+    let newEntry = cardMaker(response.data);
+    cardContainer.appendChild(newEntry);
+  });
+  .catch( (err) => {
+    console.log(err);
+  });
+
+  */
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -53,6 +64,7 @@ const followersArray = [];
   </div>
 </div>
 */
+
 
 function cardMaker(object){
   //make each element and give them appropriate class names and text content
@@ -105,7 +117,6 @@ function cardMaker(object){
 
   //return the card
   return newCard;
-
 }
 
 
