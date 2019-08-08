@@ -5,7 +5,7 @@
 
 let cardContainer = document.querySelector('.cards');
 
-/*
+
 
 axios.get('https://api.github.com/users/jeffreywhitaker')
   .then( (response) => {
@@ -16,12 +16,29 @@ axios.get('https://api.github.com/users/jeffreywhitaker')
     // });
     let newEntry = cardMaker(response.data);
     cardContainer.appendChild(newEntry);
-  });
+  })
   .catch( (err) => {
     console.log(err);
   });
 
-  */
+
+
+
+
+axios.get('https://api.github.com/users/jeffreywhitaker/followers')
+  .then( (response) => {
+    console.log(response);
+    const followersArray = [response];
+    response.data.forEach( item => {
+      let newEntry = cardMaker(item);
+    cardContainer.appendChild(newEntry);
+    });
+  })
+  .catch( (err) => {
+    console.log(err);
+  });
+
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -44,7 +61,6 @@ axios.get('https://api.github.com/users/jeffreywhitaker')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -95,13 +111,13 @@ function cardMaker(object){
   cardUserProfileAnchor.textContent = object.html_url;
 
   const cardUserFollowersCount = document.createElement('p');
-  cardUserFollowersCount = object.followers;
+  cardUserFollowersCount.textContent = object.followers;
 
   const cardUserFollowingCount = document.createElement('p');
-  cardUserFollowingCount = object.following;
+  cardUserFollowingCount.textContent = object.following;
 
   const cardUserBio = document.createElement('p');
-  cardUserBio = object.bio;
+  cardUserBio.textContent = object.bio;
 
   //append each element in correct sequence
   newCard.appendChild(cardImg);
